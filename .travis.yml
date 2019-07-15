@@ -1,25 +1,25 @@
-language: node_js
+# language: node_js
 
-node_js:
-  - 11.10.0
+# node_js:
+#   - 11.10.0
 
-rvm: 
-  - 2.4.1
-install:
-  - gem install bundler jekyll
+# rvm: 
+#   - 2.4.1
+# install:
+#   - gem install bundler jekyll
 
-script:
-  - bundle install
-  - npm install
-  - npm run build
+# script:
+#   - bundle install
+#   - npm install
+#   - npm run build
 
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GH_TOKENS  # Set in the settings page of your repository, as a secure variable
-  on:
-    branch: master
-  local_dir: _site
+# deploy:
+#   provider: pages
+#   skip_cleanup: true
+#   github_token: $GH_TOKENS  # Set in the settings page of your repository, as a secure variable
+#   on:
+#     branch: master
+#   local_dir: _site
 
 after_script:
   - curl -X POST https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage -d chat_id=259198083 -d text="<%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author} %{result} in %{duration}. <https://google.com|CHECK IT OUT>"
