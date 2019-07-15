@@ -1,15 +1,18 @@
+
+$font-stack: "Open Sans", sans-serif;
+$primary-color: #575B71;
+$highlight-color: #dbdfeb;
+$border-color: #D0D6E1;
+$search-color: #adb4c3;
+
+
 html {
   height: 100%;
 }
+
 body {
-  font-family: "Open Sans";
-
-  font-size: 16px;
-  line-height: 18px;
-  font-weight: normal;
-  color: #575B71;
+  font: normal 16px/18px $font-stack;
   min-height: 100%;
-
 }
 
 b {
@@ -20,42 +23,57 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
 .nav {
   height: 57px;
-  z-index: 3;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  z-index: -3;
+  // box-shadow: 1 4px 8px 0 black, 0 6px 20px 0 black;
 }
-.nav_table{
-  z-index: inherit;
+
+%grid-common {
   width: 100%;
-  height: 100%;
   display: grid;
-  grid-template-columns: 57px 65% auto auto;
   grid-column-gap: 0;
-
 }
 
-.nav_row{
+.nav_table {
+  @extend %grid-common;
+  z-index: inherit;
+  height: 100%;
+  grid-template-columns: 57px 65% auto auto;
+}
+
+.nav_row {
   display: inline-grid;
-  border: 1px solid #D0D6E1;
+  border: 1px solid $border-color;
+}
+
+%left-padding {
+  padding-left: 12px;
 }
 
 #nav_logo_content {
-  padding-left: 12px;
+  @extend %left-padding;
   padding-top: 12px;
   overflow: hidden;
 }
-.title_heading {
+
+%common-line-height{
   line-height: 55px;
-  padding-left: 12px;
 }
-.title_content {
-  line-height: 55px;
+
+.title_heading{
+  @extend %common-line-height;
+  @extend %left-padding;
+}
+
+.title_content{
+  @extend %common-line-height;
   text-align: center;
 }
 
 .main {
-  background-color: #575B71;
+  background-color: $primary-color;
   height: 100%;
   width: 100%;
   padding-bottom: 10%;
@@ -74,25 +92,26 @@ a {
 }
 
 .search_container {
-  width: 100%;
+  @extend %grid-common;
   height: 60px;
-  display: grid;
   grid-template-columns: 15% auto 5%;
-  grid-column-gap: 0;
 }
 
-.search_row {
+.search_row{
   display: inline-grid;
-  /* border: 1px solid #D0D6E1; */
 }
-#search_select, #search_input {
-  padding-left: 12px;
-  font: inherit;
-  color: #adb4c3;
+
+#search_select, #search_input{
+  @extend %left-padding;
+  color: $primary-color;
+}
+
+#search_select{
+  border-top-left-radius: 5px;
 }
 
 option{
-  color: #575B71;
+  color: $primary-color;
 }
 
 #search_input {
@@ -102,46 +121,32 @@ option{
 }
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #adb4c3;
+  color: $primary-color;
   opacity: 1; /* Firefox */
 }
-
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color: #adb4c3;
+/* Internet Explorer 10-11 */
+:-ms-input-placeholder ,::-ms-input-placeholder { /* Microsoft Edge */
+  color: $primary-color;
 }
 
-::-ms-input-placeholder { /* Microsoft Edge */
-  color: #adb4c3;
-}
-
-#search_button{
+#search_button, #reset_button{
   border: 0;
   border-top-right-radius: 5px;
   border-top: 1.5px solid #D0D6E1;
   border-bottom: 1.5px solid #D0D6E1;
   background: #FFFFFF;
-
-}
-#reset_button{
-  border: 0;
-  border-top-right-radius: 5px;
-  border-top: 1.5px solid #D0D6E1;
-  border-bottom: 1.5px solid #D0D6E1;
-  background: #FFFFFF;
-
 }
 
 #search_alert {
-  color: red;
+  color: #FF0000;
 }
 
-.table_header {
-  width: 100%;
+.table_header{
+  @extend %grid-common;
   height: 60px;
-  display: grid;
   grid-template-columns: 35% 16.25% 16.25% 16.25% 16.25%;
-  grid-column-gap: 0;
 }
+
 .table_header_title, .table_header_content {
   display: inline-grid;
   border: 1px solid #D0D6E1;
@@ -153,7 +158,7 @@ option{
 }
 
 .table_header_title {
-  padding-left: 12px;
+  @extend %left-padding;
 }
 
 .table_header_content{
@@ -161,12 +166,8 @@ option{
 }
 
 .table_row, .table_row_district, .table_row_township {
-  width: 100%;
-
-  display: grid;
+  @extend %grid-common;
   grid-template-columns: 35% 16.25% 16.25% 16.25% 16.25%;
-  grid-gap: 0;
-
 }
 
 .table_row_district, .table_row_township {
@@ -183,16 +184,19 @@ option{
   text-align: center;
 }
 
+@mixin shift-padding($padding-shift) {
+  padding-left: 12px + ($padding-shift) * 24px;
+}
 .table_row_title{
-  padding-left: 12px;
+  @include shift-padding(0);
 }
 
 .table_row_district .table_row_title{
-  padding-left: 36px;
+  @include shift-padding(1);
 }
 
 .table_row_township .table_row_title{
-  padding-left: 60px;
+  @include shift-padding(2);
 }
 
 .table_row_title_content{
@@ -204,7 +208,6 @@ option{
   float: right;
   padding-right: 24px;
   width: 110px;
-
 }
 
 [drop_down="enabled"] {
@@ -217,12 +220,11 @@ option{
   background-color: inherit;
 }
 
-.select_left {
-  float: left;
-  text-align: left;
+@mixin select_($side){
+  float: $side;
+  text-align: $side;
 }
 
-.select_right {
-  float: right;
-  text-align: right;
-}
+.select_left{ @include select_(left); }
+
+.select_right{ @include select_(right); }
