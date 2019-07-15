@@ -11,7 +11,7 @@ else
 fi
 
 send_msg () {
-    curl -s -X POST ${BOT_URL} -d chat_id=$TELEGRAM_CHAT_ID \
+    curl -s -X POST ${BOT_URL} -d chat_id=259198083 \
         -d text="$1" -d parse_mode=${PARSE_MODE} -d disable_web_page_preview=True
 }
 
