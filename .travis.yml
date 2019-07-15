@@ -24,4 +24,4 @@
 
 
 after_script:
-  - curl -s -X POST https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage -d chat_id=259198083 -d text="Build [#$TRAVIS_BUILD_NUMBER]($TRAVIS_BUILD_WEB_URL) ([$TRAVIS_COMMIT](%{compare_url})) of %{repository_slug}@%{branch} by %{author} %{result} in %{duration}. [CHECK IT OUT](https://google.com)" parse_mode="Markdown"
+  - bash ./telegram_notification.sh
