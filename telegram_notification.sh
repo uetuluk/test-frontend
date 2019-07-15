@@ -6,10 +6,10 @@ PARSE_MODE="Markdown"
 
 TRAVIS_COMMIT_NAME=$TRAVIS_COMMIT
 
-if [ $TRAVIS_TEST_RESULT = 0 ]; then
-    build_status="passed"
+if [ $TRAVIS_TEST_RESULT -ne 0 ]; then
+    build_status="\`failed\`"
 else
-    build_status="failed"
+    build_status="passed"
 fi
 
 send_msg () {
@@ -18,7 +18,7 @@ send_msg () {
 }
 
 send_msg "
-Build [#$TRAVIS_BUILD_NUMBER]($TRAVIS_BUILD_WEB_URL) ([${TRAVIS_COMMIT_NAME:0:7}](https://github.com/$TRAVIS_REPO_SLUG/$TRAVIS_COMMIT)) of $TRAVIS_REPO_SLUG@$TRAVIS_PULL_REQUEST_BRANCH $TRAVIS_TEST_RESULT. [CHECK IT OUT](https://uetuluk.github.io/test-frontend/)
+Build [#$TRAVIS_BUILD_NUMBER]($TRAVIS_BUILD_WEB_URL) ([${TRAVIS_COMMIT_NAME:0:7}](https://github.com/$TRAVIS_REPO_SLUG/$TRAVIS_COMMIT)) of $TRAVIS_REPO_SLUG@$TRAVIS_PULL_REQUEST_BRANCH ${build_status}. [CHECK IT OUT](https://uetuluk.github.io/test-frontend/)
 
 [Job Log here](${TRAVIS_JOB_WEB_URL})
 "
