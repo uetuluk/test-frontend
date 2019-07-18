@@ -1,5 +1,7 @@
 # Readme
 
+[![Build Status](https://travis-ci.org/uetuluk/test-frontend.svg?branch=master)](https://travis-ci.org/uetuluk/test-frontend)
+
 This website has been created with reference to the following mockup.
 
 ![wiredcraft-front-end-test-mock](https://cldup.com/JM3lLBAS5V.jpg)
